@@ -220,7 +220,18 @@ bool kint::operator<(const kint &num) const
 
 bool kint::operator==(const kint &num) const
 {
-    return !(*this > num || *this < num);
+    if (this->isNegative ^ num.isNegative)
+        return false;
+    if (this->digitLen() != num.digitLen())
+        return false;
+
+    for (int i = this->digitLen() - 1; i >= 0; i--)
+    {
+        if (this->digits[i] != num.digits[i])
+            return false;
+    }
+
+    return true;
 }
 
 bool kint::operator!=(const kint &num) const
