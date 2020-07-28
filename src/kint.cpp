@@ -169,7 +169,7 @@ bool kint::operator>(const kint &num) const
 
     if (this->digitLen() != num.digitLen())
         return this->digitLen() > num.digitLen();
-    for (size_t i = this->digitLen() - 1; i >= 0; i--)
+    for (int i = this->digitLen() - 1; i >= 0; i--)
     {
         if (this->digits[i] > num.digits[i])
             return true;
@@ -195,7 +195,7 @@ bool kint::operator<(const kint &num) const
 
     if (this->digitLen() != num.digitLen())
         return this->digitLen() < num.digitLen();
-    for (size_t i = this->digitLen() - 1; i >= 0; i--)
+    for (int i = this->digitLen() - 1; i >= 0; i--)
     {
         if (this->digits[i] < num.digits[i])
             return true;
