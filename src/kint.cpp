@@ -1,21 +1,23 @@
-#include "kmath.hpp"
+#include "kint.hpp"
 
-KInt::KInt()
+using kmath::kint;
+
+kint::kint()
 {
     this->digits.push_back(0);
     this->isNegative = false;
 }
 
-KInt::KInt(const KInt &num)
+kint::kint(const kint &num)
 {
     *this = num;
 }
 
-KInt KInt::operator+(const KInt &num) const
+kint kint::operator+(const kint &num) const
 {
     if (!this->isNegative && num.isNegative)
     {
-        KInt temp = num;
+        kint temp = num;
         temp.isNegative = false;
         return *this - temp;
     }
@@ -23,7 +25,7 @@ KInt KInt::operator+(const KInt &num) const
     if (this->isNegative && !num.isNegative)
         return num + *this;
 
-    KInt result = *this;
+    kint result = *this;
 
     size_t minLen = result.digitLen();
     if (minLen > num.digitLen())
@@ -54,33 +56,33 @@ KInt KInt::operator+(const KInt &num) const
     return result;
 }
 
-KInt KInt::operator-(const KInt &num) const
+kint kint::operator-(const kint &num) const
 {
     if (!this->isNegative && num.isNegative)
     {
-        KInt temp = num;
+        kint temp = num;
         temp.isNegative = false;
         return *this + temp;
     }
 
     if (this->isNegative && !num.isNegative)
     {
-        KInt temp = *this;
+        kint temp = *this;
         temp.isNegative = false;
         return temp + num;
     }
 
     if (this->isNegative && num.isNegative)
     {
-        KInt tempA = *this;
-        KInt tempB = num;
+        kint tempA = *this;
+        kint tempB = num;
         tempA.isNegative = false;
         tempB.isNegative = false;
         return tempB - tempA;
     }
 
-    KInt result;
-    KInt another;
+    kint result;
+    kint another;
     if (*this < num)
     {
         result = num;
@@ -116,14 +118,14 @@ KInt KInt::operator-(const KInt &num) const
     return result;
 }
 
-KInt KInt::operator=(const KInt &num)
+kint kint::operator=(const kint &num)
 {
     this->digits = num.digits;
     this->isNegative = num.isNegative;
     return *this;
 }
 
-bool KInt::operator>(const KInt &num) const
+bool kint::operator>(const kint &num) const
 {
     if (this->isNegative && !num.isNegative)
         return false;
@@ -131,8 +133,8 @@ bool KInt::operator>(const KInt &num) const
         return true;
     if (this->isNegative && num.isNegative)
     {
-        KInt tempA = *this;
-        KInt tempB = num;
+        kint tempA = *this;
+        kint tempB = num;
         tempA.isNegative = false;
         tempB.isNegative = false;
         return tempB > tempA;
@@ -149,7 +151,7 @@ bool KInt::operator>(const KInt &num) const
     return false;
 }
 
-bool KInt::operator<(const KInt &num) const
+bool kint::operator<(const kint &num) const
 {
     if (this->isNegative && !num.isNegative)
         return true;
@@ -157,8 +159,8 @@ bool KInt::operator<(const KInt &num) const
         return false;
     if (this->isNegative && num.isNegative)
     {
-        KInt tempA = *this;
-        KInt tempB = num;
+        kint tempA = *this;
+        kint tempB = num;
         tempA.isNegative = false;
         tempB.isNegative = false;
         return tempB < tempA;
@@ -175,12 +177,12 @@ bool KInt::operator<(const KInt &num) const
     return false;
 }
 
-bool KInt::operator==(const KInt &num) const
+bool kint::operator==(const kint &num) const
 {
     return !(*this > num || *this < num);
 }
 
-size_t KInt::digitLen() const
+size_t kint::digitLen() const
 {
     return this->digits.size();
 }
