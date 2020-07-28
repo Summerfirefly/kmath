@@ -29,7 +29,7 @@ namespace kmath
         std::vector<uint32_t> digits;
     };
 
-    kint operator"" ki(char const *value, size_t len);
+    kint operator"" _ki(char const *value, size_t len);
 } // namespace kmath
 
 #endif

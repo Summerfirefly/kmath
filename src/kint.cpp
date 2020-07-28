@@ -118,6 +118,33 @@ kint kint::operator-(const kint &num) const
     return result;
 }
 
+kint kint::operator*(const kint &num) const
+{
+    kint result;
+    kint temp;
+    temp.digits.clear();
+
+    for (auto i = num.digits.begin(); i != num.digits.end(); i++)
+    {
+        kint t2 = temp;
+        uint32_t carry = 0;
+        for (auto j = this->digits.begin(); j != this->digits.end(); j++)
+        {
+            uint64_t t1 = (uint64_t)*i * (uint64_t)*j + (uint64_t)carry;
+            carry = t1 >> 32;
+            t2.digits.push_back(t1 & __UINT32_MAX__);
+        }
+
+        if (carry != 0)
+            t2.digits.push_back(carry);
+        result = result + t2;
+        temp.digits.push_back(0);
+    }
+
+    result.isNegative = this->isNegative ^ num.isNegative;
+    return result;
+}
+
 kint kint::operator=(const kint &num)
 {
     this->digits = num.digits;
