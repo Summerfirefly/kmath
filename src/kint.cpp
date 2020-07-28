@@ -10,7 +10,8 @@ kint::kint()
 
 kint::kint(const kint &num)
 {
-    *this = num;
+    this->digits = num.digits;
+    this->isNegative = num.isNegative;
 }
 
 kint::kint(const int &num)
