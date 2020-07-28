@@ -32,11 +32,11 @@ KInt KInt::operator+(const KInt &num) const
     uint32_t carry = 0;
     for (size_t i = 0; i < minLen; i++)
     {
-        result.digits[i] += num.digits[i];
         uint32_t temp = result.digits[i] > __UINT32_MAX__ - num.digits[i] ? 1 : 0;
-        result.digits[i] += carry;
+        result.digits[i] += num.digits[i];
         if (temp == 0)
             temp = result.digits[i] > __UINT32_MAX__ - carry ? 1 : 0;
+        result.digits[i] += carry;
         carry = temp;
     }
 
@@ -79,7 +79,41 @@ KInt KInt::operator-(const KInt &num) const
         return tempB - tempA;
     }
 
-    KInt result = *this;
+    KInt result;
+    KInt another;
+    if (*this < num)
+    {
+        result = num;
+        another = *this;
+        result.isNegative = true;
+    }
+    else
+    {
+        result = *this;
+        another = num;
+    }
+
+    size_t minLen = another.digitLen();
+    uint32_t carry = 0;
+    for (size_t i = 0; i < minLen; i++)
+    {
+        uint32_t temp = result.digits[i] < another.digits[i] ? 1 : 0;
+        result.digits[i] -= another.digits[i];
+        if (temp == 0)
+            temp = result.digits[i] < carry ? 1 : 0;
+        result.digits[i] -= carry;
+        carry = temp;
+    }
+
+    if (result.digitLen() > minLen)
+        result.digits[minLen] -= carry;
+    
+    while (result.digitLen() > 1 && result.digits.back() == 0)
+        result.digits.pop_back();
+    if (result.digitLen() == 1 && result.digits[0] == 0)
+        result.isNegative = false;
+
+    return result;
 }
 
 KInt KInt::operator=(const KInt &num)
@@ -106,7 +140,7 @@ bool KInt::operator>(const KInt &num) const
 
     if (this->digitLen() != num.digitLen())
         return this->digitLen() > num.digitLen();
-    for (int i = 0; i < this->digitLen(); i++)
+    for (size_t i = this->digitLen() - 1; i >= 0; i--)
     {
         if (this->digits[i] > num.digits[i])
             return true;
@@ -132,7 +166,7 @@ bool KInt::operator<(const KInt &num) const
 
     if (this->digitLen() != num.digitLen())
         return this->digitLen() < num.digitLen();
-    for (int i = 0; i < this->digitLen(); i++)
+    for (size_t i = this->digitLen() - 1; i >= 0; i--)
     {
         if (this->digits[i] < num.digits[i])
             return true;
