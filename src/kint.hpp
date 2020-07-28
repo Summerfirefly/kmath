@@ -11,6 +11,7 @@ namespace kmath
     public:
         kint();
         kint(const kint &num);
+        kint(const int &num);
 
         kint operator+(const kint &num) const;
         kint operator-(const kint &num) const;

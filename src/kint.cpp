@@ -13,6 +13,15 @@ kint::kint(const kint &num)
     *this = num;
 }
 
+kint::kint(const int &num)
+{
+    this->isNegative = num < 0;
+    if (this->isNegative)
+        this->digits.push_back(-num);
+    else
+        this->digits.push_back(num);
+}
+
 kint kint::operator+(const kint &num) const
 {
     if (!this->isNegative && num.isNegative)
