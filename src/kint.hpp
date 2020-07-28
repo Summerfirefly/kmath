@@ -22,6 +22,7 @@ namespace kmath
         bool operator>(const kint &num) const;
         bool operator<(const kint &num) const;
         bool operator==(const kint &num) const;
+        bool operator!=(const kint &num) const;
 
         size_t digitLen() const;
 
@@ -30,7 +31,7 @@ namespace kmath
         std::vector<uint32_t> digits;
     };
 
-    kint operator"" _ki(char const *value, size_t len);
+    kint operator"" _ki(char const *value);
 } // namespace kmath
 
 #endif

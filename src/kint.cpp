@@ -222,7 +222,38 @@ bool kint::operator==(const kint &num) const
     return !(*this > num || *this < num);
 }
 
+bool kint::operator!=(const kint &num) const
+{
+    return !(*this == num);
+}
+
 size_t kint::digitLen() const
 {
     return this->digits.size();
+}
+
+kint kmath::operator"" _ki(char const *value)
+{
+    size_t i = 0;
+    bool isNegative = false;
+    kint result;
+
+    if (value[i] == '-')
+    {
+        isNegative = true;
+        i++;
+    }
+
+    for (; value[i] != '\0'; i++)
+    {
+        if (value[i] < '0' || value[i] > '9')
+            break;
+        result = result * 10;
+        result = result + (value[i] - '0');
+    }
+
+    if (isNegative && result != 0)
+        result = result * -1;
+
+    return result;
 }
