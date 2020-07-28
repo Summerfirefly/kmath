@@ -163,6 +163,8 @@ kint kint::operator=(const kint &num)
 
 bool kint::operator>(const kint &num) const
 {
+    if (*this == 0 && num == 0)
+        return false;
     if (this->isNegative && !num.isNegative)
         return false;
     if (!this->isNegative && num.isNegative)
@@ -189,6 +191,8 @@ bool kint::operator>(const kint &num) const
 
 bool kint::operator<(const kint &num) const
 {
+    if (*this == 0 && num == 0)
+        return false;
     if (this->isNegative && !num.isNegative)
         return true;
     if (!this->isNegative && num.isNegative)
