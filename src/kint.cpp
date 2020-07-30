@@ -208,8 +208,10 @@ bool kint::operator>(const kint &num) const
         return this->digitLen() > num.digitLen();
     for (int i = this->digitLen() - 1; i >= 0; i--)
     {
-        if (this->digits[i] > num.digits[i])
-            return true;
+        if (this->digits[i] == num.digits[i])
+            continue;
+        else
+            return this->digits[i] > num.digits[i];
     }
 
     return false;
@@ -236,8 +238,10 @@ bool kint::operator<(const kint &num) const
         return this->digitLen() < num.digitLen();
     for (int i = this->digitLen() - 1; i >= 0; i--)
     {
-        if (this->digits[i] < num.digits[i])
-            return true;
+        if (this->digits[i] == num.digits[i])
+            continue;
+        else
+            return this->digits[i] < num.digits[i];
     }
 
     return false;
@@ -267,13 +271,8 @@ bool kint::operator!=(const kint &num) const
 /*********************PRIVATE************************/
 void kint::delFrontZero()
 {
-    while (this->digits.back() == 0)
+    while (this->digitLen() > 1 && this->digits.back() == 0)
         this->digits.pop_back();
-    if (this->digitLen() == 0)
-    {
-        this->digits.push_back(0);
-        this->isNegative = false;
-    }
 }
 
 size_t kint::digitLen() const
