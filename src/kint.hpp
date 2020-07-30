@@ -26,13 +26,12 @@ namespace kmath
         bool operator==(const kint &num) const;
         bool operator!=(const kint &num) const;
 
-        size_t digitLen() const;
-
     private:
         bool isNegative;
         std::vector<uint32_t> digits;
 
         void delFrontZero();
+        size_t digitLen() const;
     };
 
     kint operator"" _ki(char const *value);

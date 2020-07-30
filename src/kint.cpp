@@ -264,11 +264,6 @@ bool kint::operator!=(const kint &num) const
     return !(*this == num);
 }
 
-size_t kint::digitLen() const
-{
-    return this->digits.size();
-}
-
 /*********************PRIVATE************************/
 void kint::delFrontZero()
 {
@@ -279,6 +274,11 @@ void kint::delFrontZero()
         this->digits.push_back(0);
         this->isNegative = false;
     }
+}
+
+size_t kint::digitLen() const
+{
+    return this->digits.size();
 }
 /****************************************************/
 
