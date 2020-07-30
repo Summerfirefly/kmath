@@ -63,6 +63,7 @@ kint kint::operator+(const kint &num) const
     else
         result.digits[minLen] += carry;
 
+    result.delFrontZero();
     return result;
 }
 
@@ -125,6 +126,7 @@ kint kint::operator-(const kint &num) const
     if (result.digitLen() == 1 && result.digits[0] == 0)
         result.isNegative = false;
 
+    result.delFrontZero();
     return result;
 }
 
@@ -152,6 +154,28 @@ kint kint::operator*(const kint &num) const
     }
 
     result.isNegative = this->isNegative ^ num.isNegative;
+    result.delFrontZero();
+    return result;
+}
+
+kint kint::operator/(const kint &num) const
+{
+    kint temp = *this;
+    kint result = 0;
+
+    while (temp > num)
+    {
+        kint low = 1;
+        kint high = 2;
+        while (high * num < temp)
+        {
+            low = high;
+            high = high * 2;
+        }
+        temp = temp - low * num;
+        result = result + low;
+    }
+
     return result;
 }
 
@@ -243,6 +267,19 @@ size_t kint::digitLen() const
 {
     return this->digits.size();
 }
+
+/*********************PRIVATE************************/
+void kint::delFrontZero()
+{
+    while (this->digits.back() == 0)
+        this->digits.pop_back();
+    if (this->digitLen() == 0)
+    {
+        this->digits.push_back(0);
+        this->isNegative = false;
+    }
+}
+/****************************************************/
 
 kint kmath::operator"" _ki(char const *value)
 {

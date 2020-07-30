@@ -1,7 +1,7 @@
 #ifndef KINT_H
 #define KINT_H
 
-#include <vector>
+#include <queue>
 #include <cstdint>
 
 namespace kmath
@@ -19,6 +19,8 @@ namespace kmath
         kint operator/(const kint &num) const;
         kint operator=(const kint &num);
 
+        kint operator<<(const kint &num) const;
+
         bool operator>(const kint &num) const;
         bool operator<(const kint &num) const;
         bool operator==(const kint &num) const;
@@ -29,6 +31,8 @@ namespace kmath
     private:
         bool isNegative;
         std::vector<uint32_t> digits;
+
+        void delFrontZero();
     };
 
     kint operator"" _ki(char const *value);
