@@ -176,6 +176,7 @@ kint kint::operator/(const kint &num) const
         result = result + low;
     }
 
+    result.delFrontZero();
     return result;
 }
 
