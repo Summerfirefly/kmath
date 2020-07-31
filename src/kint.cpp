@@ -163,7 +163,7 @@ kint kint::operator/(const kint &num) const
     kint temp = *this;
     kint result = 0;
 
-    while (temp > num)
+    while (!(temp < num))
     {
         kint low = 1;
         kint high = 2;
@@ -178,6 +178,11 @@ kint kint::operator/(const kint &num) const
 
     result.delFrontZero();
     return result;
+}
+
+kint kint::operator%(const kint &num) const
+{
+    return *this - *this / num * num;
 }
 
 kint kint::operator=(const kint &num)
@@ -211,6 +216,18 @@ kint kint::operator--(int)
     kint rtn = *this;
     *this = *this - 1;
     return rtn;
+}
+
+kint kint::operator<<(const kint &num) const
+{
+    kint two = 2;
+    return *this * two.mpow(num);
+}
+
+kint kint::operator>>(const kint &num) const
+{
+    kint two = 2;
+    return *this / two.mpow(num);
 }
 
 bool kint::operator>(const kint &num) const
@@ -299,11 +316,29 @@ void kint::delFrontZero()
 {
     while (this->digitLen() > 1 && this->digits.back() == 0)
         this->digits.pop_back();
+    if (this->digitLen() == 1 && this->digits.back() == 0)
+        this->isNegative = false;
 }
 
 size_t kint::digitLen() const
 {
     return this->digits.size();
+}
+
+kint kint::mpow(const kint &power) const
+{
+    kint result = 1;
+    kint temp = *this;
+    kint pow = power;
+    while (pow > 0)
+    {
+        if (pow % 2 == 1)
+            result = result * temp;
+        pow = pow / 2;
+        temp = temp * 2;
+    }
+
+    return result;
 }
 /****************************************************/
 

@@ -17,6 +17,7 @@ namespace kmath
         kint operator-(const kint &num) const;
         kint operator*(const kint &num) const;
         kint operator/(const kint &num) const;
+        kint operator%(const kint &num) const;
         kint operator=(const kint &num);
 
         kint operator++();
@@ -25,6 +26,7 @@ namespace kmath
         kint operator--(int);
 
         kint operator<<(const kint &num) const;
+        kint operator>>(const kint &num) const;
 
         bool operator>(const kint &num) const;
         bool operator<(const kint &num) const;
@@ -37,6 +39,7 @@ namespace kmath
 
         void delFrontZero();
         size_t digitLen() const;
+        kint mpow(const kint &power) const;
     };
 
     kint operator"" _ki(char const *value);
