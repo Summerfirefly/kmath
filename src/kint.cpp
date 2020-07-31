@@ -371,25 +371,35 @@ kint kint::mpow(const kint &power) const
 kint kmath::operator"" _ki(char const *value)
 {
     size_t i = 0;
-    bool isNegative = false;
+    int base = 10;
     kint result;
 
-    if (value[i] == '-')
+    if (value[i] == '0')
     {
-        isNegative = true;
-        i++;
+        if (value[i + 1] == 'x')
+        {
+            base = 16;
+            i = 2;
+        }
+        else if (value[i + 1] == 'b')
+        {
+            base = 2;
+            i = 2;
+        }
+        else if (value[i + 1] != '\0')
+        {
+            base = 8;
+            i = 1;
+        }
     }
 
     for (; value[i] != '\0'; i++)
     {
         if (value[i] < '0' || value[i] > '9')
             break;
-        result = result * 10;
+        result = result * base;
         result = result + (value[i] - '0');
     }
-
-    if (isNegative && result != 0)
-        result = -result;
 
     return result;
 }
