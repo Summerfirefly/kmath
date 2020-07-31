@@ -19,6 +19,11 @@ namespace kmath
         kint operator/(const kint &num) const;
         kint operator=(const kint &num);
 
+        kint operator++();
+        kint operator++(int);
+        kint operator--();
+        kint operator--(int);
+
         kint operator<<(const kint &num) const;
 
         bool operator>(const kint &num) const;

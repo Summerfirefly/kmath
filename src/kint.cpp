@@ -187,6 +187,32 @@ kint kint::operator=(const kint &num)
     return *this;
 }
 
+kint kint::operator++()
+{
+    *this = *this + 1;
+    return *this;
+}
+
+kint kint::operator++(int)
+{
+    kint rtn = *this;
+    *this = *this + 1;
+    return rtn;
+}
+
+kint kint::operator--()
+{
+    *this = *this - 1;
+    return *this;
+}
+
+kint kint::operator--(int)
+{
+    kint rtn = *this;
+    *this = *this - 1;
+    return rtn;
+}
+
 bool kint::operator>(const kint &num) const
 {
     if (*this == 0 && num == 0)
