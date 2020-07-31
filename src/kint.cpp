@@ -163,7 +163,7 @@ kint kint::operator/(const kint &num) const
     kint temp = *this;
     kint result = 0;
 
-    while (!(temp < num))
+    while (temp >= num)
     {
         kint low = 1;
         kint high = 2;
@@ -288,6 +288,16 @@ bool kint::operator<(const kint &num) const
     }
 
     return false;
+}
+
+bool kint::operator>=(const kint &num) const
+{
+    return !(*this < num);
+}
+
+bool kint::operator<=(const kint &num) const
+{
+    return !(*this > num);
 }
 
 bool kint::operator==(const kint &num) const

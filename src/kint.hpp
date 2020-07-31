@@ -18,6 +18,7 @@ namespace kmath
         kint operator*(const kint &num) const;
         kint operator/(const kint &num) const;
         kint operator%(const kint &num) const;
+
         kint operator=(const kint &num);
 
         kint operator++();
@@ -30,6 +31,8 @@ namespace kmath
 
         bool operator>(const kint &num) const;
         bool operator<(const kint &num) const;
+        bool operator>=(const kint &num) const;
+        bool operator<=(const kint &num) const;
         bool operator==(const kint &num) const;
         bool operator!=(const kint &num) const;
 
