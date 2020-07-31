@@ -23,6 +23,18 @@ kint::kint(const int &num)
         this->digits.push_back(num);
 }
 
+kint kint::operator+() const
+{
+    return *this;
+}
+
+kint kint::operator-() const
+{
+    kint result = *this;
+    result.isNegative = !result.isNegative;
+    return result;
+}
+
 kint kint::operator+(const kint &num) const
 {
     if (!this->isNegative && num.isNegative)
@@ -220,12 +232,16 @@ kint kint::operator--(int)
 
 kint kint::operator<<(const kint &num) const
 {
+    if (num < 0)
+        return *this >> -num;
     kint two = 2;
     return *this * two.mpow(num);
 }
 
 kint kint::operator>>(const kint &num) const
 {
+    if (num < 0)
+        return *this << -num;
     kint two = 2;
     return *this / two.mpow(num);
 }
@@ -373,7 +389,7 @@ kint kmath::operator"" _ki(char const *value)
     }
 
     if (isNegative && result != 0)
-        result = result * -1;
+        result = -result;
 
     return result;
 }
