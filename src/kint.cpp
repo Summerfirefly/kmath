@@ -14,13 +14,19 @@ kint::kint(const kint &num)
     this->isNegative = num.isNegative;
 }
 
-kint::kint(const int &num)
+kint::kint(const int64_t &num)
 {
     this->isNegative = num < 0;
+    int64_t temp = num;
     if (this->isNegative)
-        this->digits.push_back(-num);
-    else
-        this->digits.push_back(num);
+        temp = -temp;
+
+    uint32_t lowbits = temp & 0xffffffff;
+    uint32_t highbits = temp >> 32;
+
+    this->digits.push_back(lowbits);
+    this->digits.push_back(highbits);
+    delFrontZero();
 }
 
 kint kint::operator+() const

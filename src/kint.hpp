@@ -1,7 +1,7 @@
 #ifndef KINT_H
 #define KINT_H
 
-#include <queue>
+#include <vector>
 #include <cstdint>
 
 namespace kmath
@@ -11,7 +11,7 @@ namespace kmath
     public:
         kint();
         kint(const kint &num);
-        kint(const int &num);
+        kint(const int64_t &num);
 
         kint operator+() const;
         kint operator-() const;
